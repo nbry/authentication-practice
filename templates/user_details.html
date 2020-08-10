@@ -2,13 +2,48 @@
 {% block title %}User Details{% endblock %}
 
 {% block content %}
-<h1>Secret</h1>
-<p class="lead">Welcome back {{session.user}}</p>
+<h1>{{user.username}}</h1>
 
-<ul>
+
+<p class="lead">User Details: </p>
+<ul class='mb-0'>
     <li>Name: {{user.first_name}} {{user.last_name}}</li>
     <li>Email: {{user.email}}</li>
-    <li>Username: {{session.user}}</li>
+    <li>Username: {{user.username}}</li>
 </ul>
+
+{% if session['user'] == user.username %}
+<div>
+    <form action="/users/{{user.username}}/delete" method="POST">
+        <button class='btn btn-link'>Delete User</button>
+    </form>
+</div>
+{% endif %}
+
+<hr>
+
+<h3 class='mt-3'>Feedback:</h3>
+<div>
+    {% for item in feedback %}
+    <div class="card my-4">
+        <div class="card-body">
+            <h5 class="card-title text-info">{{item.title}}
+                {% if session['user'] == item.username %}
+                <form method='GET' style="display:inline" action="/feedback/{{item.id}}/update">
+                    <button class="btn btn-sm btn-warning">update</button>
+                </form>
+                <form method='POST' style="display:inline" action="/feedback/{{item.id}}/delete">
+                    <button class="btn btn-sm btn-danger">X</button>
+                </form>
+                {% endif %}
+            </h5>
+            <h6 class="card-subtitle mb-2 text-muted">Date goes here</h6>
+            <p class="card-text">
+                {{item.content}}
+            </p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
 
 {% endblock %}
