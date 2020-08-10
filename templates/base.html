@@ -13,9 +13,9 @@
         <div class="container">
             <a class="nav-bar-brand text-light" href="/">Feedback</a>
             <ul class="nav navbar-nav flex-row float-right">
-                {% if session['user_id'] %}
+                {% if session['user'] %}
                 <li class="nav-item">
-                    <a href="logout" class="nav-link text-light">Logout</a>
+                    <a href="/logout" class="nav-link text-light">Logout</a>
                 </li>
 
                 {% else %}
