@@ -12,6 +12,7 @@ app.config["SECRET_KEY"] = "abc123"
 app.config["DEBUG_TB_INTERCEPT_REDIRECTS"] = False
 
 connect_db(app)
+db.create_all()
 
 toolbar = DebugToolbarExtension(app)
 
@@ -136,6 +137,7 @@ def delete_feedback(feedback_id):
     db.session.delete(feedback)
     db.session.commit()
     return redirect(f"/users/{session['user']}")
+
 
 @app.route('/logout')
 def logout_user():
